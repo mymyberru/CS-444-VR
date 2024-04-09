@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 11400020}
   - component: {fileID: 11400002}
   - component: {fileID: 114814064252544740}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: OVRCameraRig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 400002}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ForwardDirection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,8 @@ GameObject:
   - component: {fileID: 11462408}
   - component: {fileID: 11493974}
   - component: {fileID: 2774390879559514103}
-  m_Layer: 0
+  - component: {fileID: 7672606365467869164}
+  m_Layer: 2
   m_Name: OVRPlayerController2020
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,6 +281,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handType: 1
   playerController: {fileID: 0}
+--- !u!114 &7672606365467869164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04c7fe71c3ce14fef80a759c09b1ce6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftHand: {fileID: 5846146099683711359}
+  rightHand: {fileID: 911029978437138130}
+  maximumTeleportationDistance: 15
+  markerPrefab: {fileID: 2170416831509246342, guid: b7b291559fbd949068601b9e7651ec81, type: 3}
 --- !u!1 &100010
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,7 +307,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400010}
   - component: {fileID: 20131489337305086}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: LeftEyeAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -366,7 +383,7 @@ GameObject:
   - component: {fileID: 8100000}
   - component: {fileID: 2015248}
   - component: {fileID: 11414578}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CenterEyeAnchor
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -464,7 +481,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400014}
   - component: {fileID: 20504667576486672}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: RightEyeAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -538,7 +555,7 @@ GameObject:
   m_Component:
   - component: {fileID: 481164}
   - component: {fileID: 6461834096701951994}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: RightHandAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -584,7 +601,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 462066}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: TrackingSpace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -620,7 +637,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 462068}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: TrackerAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -651,7 +668,7 @@ GameObject:
   m_Component:
   - component: {fileID: 477154}
   - component: {fileID: 8180931222863000949}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: LeftHandAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -698,7 +715,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4471613377008970}
   - component: {fileID: 7687547905711902915}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: RightControllerAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -743,7 +760,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4188412984752900}
   - component: {fileID: 6942499376226988393}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: LeftControllerAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -788,6 +805,10 @@ PrefabInstance:
     - target: {fileID: 1870938896605422, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
       propertyPath: m_Name
       value: OVRHandPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870938896605422, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4453513310108136, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
       propertyPath: m_RootOrder
@@ -856,6 +877,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4453513310108136, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
   m_PrefabInstance: {fileID: 950867026864215470}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &911029978437138130 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114428879332287356, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
+  m_PrefabInstance: {fileID: 950867026864215470}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb7623a8f0b49cf4dbaa40aea4d4be64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5816159856172431875
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -866,6 +898,10 @@ PrefabInstance:
     - target: {fileID: 1870938896605422, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
       propertyPath: m_Name
       value: OVRHandPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870938896605422, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4453513310108136, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
       propertyPath: m_RootOrder
@@ -922,3 +958,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4453513310108136, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
   m_PrefabInstance: {fileID: 5816159856172431875}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5846146099683711359 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114428879332287356, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
+  m_PrefabInstance: {fileID: 5816159856172431875}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb7623a8f0b49cf4dbaa40aea4d4be64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
