@@ -20,6 +20,7 @@ public class ObjectAnchor : MonoBehaviour {
 		this.hand_controller = hand_controller;
 
 		// Set the object to be placed in the hand controller referential
+		
 		transform.SetParent( hand_controller.transform );
 	}
 
