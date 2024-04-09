@@ -8,5 +8,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 0
+    path: Assets/Scenes/MagicGarden.unity
+    guid: e45a11bb4ed274a7d949a63f7736a35c
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 5a20085692547fc4fa26e30fb192d7d9, type: 2}
