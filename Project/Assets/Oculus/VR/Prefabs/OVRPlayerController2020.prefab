@@ -170,6 +170,7 @@ GameObject:
   - component: {fileID: 11493974}
   - component: {fileID: 2774390879559514103}
   - component: {fileID: 7672606365467869164}
+  - component: {fileID: 3389333320625084806}
   m_Layer: 2
   m_Name: OVRPlayerController2020
   m_TagString: Untagged
@@ -204,10 +205,10 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2
+  m_Height: 1.7
   m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_SlopeLimit: 90
+  m_StepOffset: 0.2
   m_SkinWidth: 0.01
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}
@@ -295,7 +296,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftHand: {fileID: 5846146099683711359}
   rightHand: {fileID: 911029978437138130}
-  maximumTeleportationDistance: 15
+  maximumTeleportationDistance: 20
+  markerPrefab: {fileID: 4880935975429309096, guid: 5c6fe0357891048099c7de1687121c2e, type: 3}
+--- !u!114 &3389333320625084806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58aee7213074f42b4849e542809d3aaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftHandAnchor: {fileID: 5816668164726096875}
+  rightHandAnchor: {fileID: 954194637957262406}
+  maximumTeleportationDistance: 20
   markerPrefab: {fileID: 2170416831509246342, guid: b7b291559fbd949068601b9e7651ec81, type: 3}
 --- !u!1 &100010
 GameObject:
@@ -897,7 +914,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1870938896605422, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
       propertyPath: m_Name
-      value: OVRHandPrefab
+      value: OVRHandPrefabL
       objectReference: {fileID: 0}
     - target: {fileID: 1870938896605422, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
       propertyPath: m_Layer

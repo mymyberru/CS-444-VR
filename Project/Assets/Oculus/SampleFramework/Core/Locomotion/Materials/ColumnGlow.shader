@@ -13,11 +13,11 @@ Shader "Custom/ColumnGlow"
 {
 	Properties
 	{
-		_TintColor ("Tint Color", Color) = (0.5,0.5,0.5,0.5)
-		_Thickness("Thickness", Range(0, 1)) = 0.5
-		_FadeStart("Fade Start", Range(0, 1)) = 0.5
-		_FadeEnd("Fade End", Range(-1, 1)) = 0.5
-		_Intensity("Intensity", Range(0, 1)) = 0.5
+		_TintColor ("Tint Color", Color) = (0.9,0.9,0.9,0.9)
+		_Thickness("Thickness", Range(0, 1)) = 0.75
+		_FadeStart("Fade Start", Range(0, 1)) = 0.1
+		_FadeEnd("Fade End", Range(-1, 1)) = 0.9
+		_Intensity("Intensity", Range(0, 1)) = 0.1
 
 	}
 	SubShader

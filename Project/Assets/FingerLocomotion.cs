@@ -18,7 +18,6 @@ public class FingerLocomotion : MonoBehaviour {
 	public GameObject markerPrefab;
 	protected GameObject marker_prefab_instanciated;
 
-
 	// Retrieve the character controller used later to move the player in the environment
 	protected CharacterController character_controller;
 	void Start () { character_controller = this.GetComponent<CharacterController>(); }
@@ -45,6 +44,7 @@ public class FingerLocomotion : MonoBehaviour {
 
 		// Store the position of the targeted point
 		Vector3 target_point;
+
 		if (
 			pointing_hand != null                           // If one hand is pinching
 			&& pointing_hand.IsPointerPoseValid             // Skip invalid pointer pose
