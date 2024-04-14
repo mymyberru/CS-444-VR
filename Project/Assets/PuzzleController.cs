@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HandController2 : MonoBehaviour {
+public class PuzzleController : MonoBehaviour {
 
 	// Store the hand type to know which button should be pressed
 	public enum HandType : int { LeftHand, RightHand };
@@ -17,10 +17,10 @@ public class HandController2 : MonoBehaviour {
 	// Store all gameobjects containing an Anchor
 	// N.B. This list is static as it is the same list for all hands controller
 	// thus there is no need to duplicate it for each instance
-	static protected ObjectAnchor2[] anchors_in_the_scene;
+	static protected PuzzleObject[] anchors_in_the_scene;
 	void Start () {
 		// Prevent multiple fetch
-		if ( anchors_in_the_scene == null ) anchors_in_the_scene = GameObject.FindObjectsOfType<ObjectAnchor2>();
+		if ( anchors_in_the_scene == null ) anchors_in_the_scene = GameObject.FindObjectsOfType<PuzzleObject>();
 	}
 
 
@@ -52,7 +52,7 @@ public class HandController2 : MonoBehaviour {
 
 	// Store the object atached to this hand
 	// N.B. This can be extended by using a list to attach several objects at the same time
-	protected ObjectAnchor2 object_grasped = null;
+	protected PuzzleObject object_grasped = null;
 
 	/// <summary>
 	/// This method handles the linking of object anchors to this hand controller

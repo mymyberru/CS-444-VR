@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-public class ObjectAnchor2 : MonoBehaviour {
+public class PuzzleObject : MonoBehaviour {
 
 	[Header( "Grasping Properties" )]
 	public float graspingRadius = 0.1f;
@@ -17,9 +17,9 @@ public class ObjectAnchor2 : MonoBehaviour {
 
 
 	// Store the hand controller this object will be attached to
-	protected HandController2 hand_controller = null;
+	protected PuzzleController hand_controller = null;
 
-	public void attach_to ( HandController2 hand_controller ) {
+	public void attach_to ( PuzzleController hand_controller ) {
 		// Store the hand controller in memory
 		this.hand_controller = hand_controller;
 		Transform newTransform=new GameObject().transform;
@@ -58,7 +58,7 @@ public class ObjectAnchor2 : MonoBehaviour {
 			yield return null; // Wait for next frame
 		}
 	}
-	public void detach_from ( HandController2 hand_controller ) {
+	public void detach_from ( PuzzleController hand_controller ) {
 		// Make sure that the right hand controller ask for the release
 		if ( this.hand_controller != hand_controller ) return;
 
