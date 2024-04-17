@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-public class PuzzleObject : MonoBehaviour {
+public class PuzzleObject : InteractiveObject {
 
 	[Header( "Grasping Properties" )]
 	public float graspingRadius = 0.1f;
@@ -9,30 +9,31 @@ public class PuzzleObject : MonoBehaviour {
 	[Header( "direction of movement Properties" )]
 	public DirectionOfMovement directionOfMovement;
 	
-	// Store initial transform parent
 	protected Transform initial_transform_parent;
+	protected PuzzleController controller = null;
+	public bool is_available () { return controller == null; }
+	public float get_grasping_radius () { return graspingRadius; }
+	
 	void Start () {
+		myType = ObjectType.Puzzle;//what type of interactive object this is
 		initial_transform_parent = transform.parent;
 	}
-
-
-	// Store the hand controller this object will be attached to
-	protected PuzzleController hand_controller = null;
-
-	public void attach_to ( PuzzleController hand_controller ) {
-		// Store the hand controller in memory
-		this.hand_controller = hand_controller;
+	
+	public void attach_to ( PuzzleController controller ) {
+		this.controller = controller;
 		Transform newTransform=new GameObject().transform;
-		newTransform.position = hand_controller.transform.position;
+		newTransform.position = controller.transform.position;
 		newTransform.rotation=Quaternion.identity;
 		transform.SetParent(newTransform);
 		
 		StartCoroutine(UpdatePosition(newTransform.transform));
-		//Collider collider = newTransform.gameObject.AddComponent<BoxCollider>();
-		//Rigidbody rigidbody = newTransform.gameObject.AddComponent<Rigidbody>();
-		//rigidbody.isKinematic = true; // Make the object kinematic to prevent it from being affected by physics
-		//transform.rotation = Quaternion.Inverse(hand_controller.transform.rotation);
 	}
+	public void detach_from ( PuzzleController controller ) {
+		if ( this.controller != controller ) return;
+		this.controller = null;
+		transform.SetParent( initial_transform_parent );
+	}
+
 	
 	private IEnumerator UpdatePosition(Transform newTransform) {
 		while (true) {
@@ -43,9 +44,9 @@ public class PuzzleObject : MonoBehaviour {
 			
 			RaycastHit hit;
 			
-			if (directionOfMovement == DirectionOfMovement.x){targetPosition.x = hand_controller.transform.position.x;}
-			if (directionOfMovement == DirectionOfMovement.y){targetPosition.y = hand_controller.transform.position.y;}
-			if (directionOfMovement == DirectionOfMovement.z){targetPosition.z = hand_controller.transform.position.z;}
+			if (directionOfMovement == DirectionOfMovement.x){targetPosition.x = controller.transform.position.x;}
+			if (directionOfMovement == DirectionOfMovement.y){targetPosition.y = controller.transform.position.y;}
+			if (directionOfMovement == DirectionOfMovement.z){targetPosition.z = controller.transform.position.z;}
 			
 			Vector3 direction = targetPosition - originalPosition;
 			
@@ -58,18 +59,7 @@ public class PuzzleObject : MonoBehaviour {
 			yield return null; // Wait for next frame
 		}
 	}
-	public void detach_from ( PuzzleController hand_controller ) {
-		// Make sure that the right hand controller ask for the release
-		if ( this.hand_controller != hand_controller ) return;
 
-		// Detach the hand controller
-		this.hand_controller = null;
 
-		// Set the object to be placed in the original transform parent
-		transform.SetParent( initial_transform_parent );
-	}
 
-	public bool is_available () { return hand_controller == null; }
-
-	public float get_grasping_radius () { return graspingRadius; }
 }

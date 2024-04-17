@@ -2,111 +2,101 @@ using UnityEngine;
 
 public class WandController : MonoBehaviour {
 
-	// Store the hand type to know which button should be pressed
 	public enum HandType : int { LeftHand, RightHand };
 	[Header( "Hand Properties" )]
 	public HandType handType;
-
-
-	// Store the player controller to forward it to the object
 	[Header( "Player Controller" )]
 	public MainPlayerController playerController;
+	static protected WandObject[] anchors_in_the_scene;
+	
+	protected WandObject wand_grasped = null;// wand that is currently in hand
 	
 
-	static protected WandObject[] anchors_in_the_scene;
-	protected WandObject wand_grasped = null;
-	
-	
-	
-	
 	void Start () {
-		// Prevent multiple fetch
-		if ( anchors_in_the_scene == null ) anchors_in_the_scene = GameObject.FindObjectsOfType<WandObject>();
-		
+		if ( anchors_in_the_scene == null ) anchors_in_the_scene = GameObject.FindObjectsOfType<WandObject>();		
 	}
 
 	void Update () { handle_controller_behavior(); }
+	
+	
+/////////////////////////////commands
 
-	
-	
-	protected bool try_to_grab () {
-		// Case of a left hand
-		if ( handType == HandType.LeftHand ) return
-			OVRInput.Get( OVRInput.Button.Three );                           // Check that the A button is pressed
-		// Case of a right hand
-		else return
-			OVRInput.Get( OVRInput.Button.One );                             // Check that the A button is pressed
-
-	}
-	protected bool try_to_release () {
-		if ( handType == HandType.LeftHand ) return
-			OVRInput.Get( OVRInput.Button.Four );                         // Check that the B button is pressed
-		// Case of a right hand
-		else return
-			OVRInput.Get( OVRInput.Button.Two );                          // Check that the B button is pressed
-
-	}
-	
-	private OVRInput.Button[] desiredSequence = { OVRInput.Button.PrimaryIndexTrigger};//, OVRInput.Button.SecondaryIndexTrigger, OVRInput.Button.PrimaryIndexTrigger, OVRInput.Button.SecondaryIndexTrigger };
-	private int currentStep = 0;
-	public float timeBetweenPresses = 1.0f;
-	private float lastPressTime = 0.0f;
-	
-	protected void activate_wand()
+	protected bool try_to_grab () //grabbing wand
 	{
-		if (OVRInput.GetDown( OVRInput.Button.PrimaryIndexTrigger)&& OVRInput.GetDown( OVRInput.Button.SecondaryIndexTrigger)){
-			wand_grasped.activate_wand();
-		}
-        foreach (OVRInput.Button button in desiredSequence)
-        {
-            if (OVRInput.GetDown(button))
-            {
-                if (button == desiredSequence[currentStep])
-                {
-                    if (Time.time - lastPressTime <= timeBetweenPresses)
-                    {
-                        currentStep++;
-                        if (currentStep == desiredSequence.Length)
-                        {
-                            Debug.Log("Sequence completed successfully!");
-							if(wand_grasped!=null){
-								wand_grasped.activate_wand();
-							}
-                            ResetSequence();
-                        }
-                    }
-                    else
-                    {
-                        ResetSequence();
-                    }
-                    lastPressTime = Time.time;
-                }
-                else
-                {
-                    ResetSequence();
-                }
-            }
-        }
+		if ( handType == HandType.LeftHand ) return
+			OVRInput.Get( OVRInput.Button.Three );                 
+		else return
+			OVRInput.Get( OVRInput.Button.One );                   
+	}
+	protected bool try_to_release ()//releasing wand
+	{
+		if ( handType == HandType.LeftHand ) return
+			OVRInput.Get( OVRInput.Button.Four );                  
+		else return
+			OVRInput.Get( OVRInput.Button.Two );                   
+	}
+	protected bool try_to_interact_with_puzzle()//move puzzle piece
+	{
+		return OVRInput.GetDown( OVRInput.Button.SecondaryHandTrigger)&& OVRInput.GetDown( OVRInput.Button.PrimaryHandTrigger);
+
+	}	
+	protected bool try_to_light_torch()//light torch
+	{
+		return OVRInput.GetDown( OVRInput.Button.PrimaryIndexTrigger)&& OVRInput.GetDown( OVRInput.Button.SecondaryIndexTrigger);
+        // foreach (OVRInput.Button button in desiredSequence)
+        // {
+            // if (OVRInput.GetDown(button))
+            // {
+                // if (button == desiredSequence[currentStep])
+                // {
+                    // if (Time.time - lastPressTime <= timeBetweenPresses)
+                    // {
+                        // currentStep++;
+                        // if (currentStep == desiredSequence.Length)
+                        // {
+                            // Debug.Log("Sequence completed successfully!");
+							// if(wand_grasped!=null){
+								// wand_grasped.light_torch();
+							// }
+                            // ResetSequence();
+                        // }
+                    // }
+                    // else
+                    // {
+                        // ResetSequence();
+                    // }
+                    // lastPressTime = Time.time;
+                // }
+                // else
+                // {
+                    // ResetSequence();
+                // }
+            // }
+        // }
     }
 
-    void ResetSequence()
-    {
-        currentStep = 0;
-        lastPressTime = 0.0f;
-    }
+    // void ResetSequence()
+    // {
+        // currentStep = 0;
+        // lastPressTime = 0.0f;
+    // }	
+	// private OVRInput.Button[] desiredSequence = { OVRInput.Button.PrimaryIndexTrigger};//, OVRInput.Button.SecondaryIndexTrigger, OVRInput.Button.PrimaryIndexTrigger, OVRInput.Button.SecondaryIndexTrigger };
+	// private int currentStep = 0;
+	// public float timeBetweenPresses = 1.0f;
+	// private float lastPressTime = 0.0f;
+	
+///////////////////////////////////////////	
+
+
 	
 	
 	
 	protected void handle_controller_behavior () {
-
-		bool grab_attempt = try_to_grab();
-		bool release_attempt=try_to_release();
 		
 		
-		//try to grab item
-		if (grab_attempt && wand_grasped == null){
+		if (try_to_grab() && wand_grasped == null)//grab wand
+		{
 
-			Debug.LogWarningFormat( "{0} get closed", this.transform.parent.name );
 			int best_object_id = -1;
 			float best_object_distance = float.MaxValue;
 			float oject_distance;
@@ -125,20 +115,32 @@ public class WandController : MonoBehaviour {
 			}			
 		}
 		
-		
-		//release item
-		if (release_attempt && wand_grasped != null){
-			Debug.LogWarningFormat("{0} released {1}", this.transform.parent.name, wand_grasped.name );
+		if (try_to_release() && wand_grasped != null)//release wand
+		{
 			wand_grasped.detach_from( this );
 			wand_grasped=null;
 		}
 		
-		//show ray and activate_wand
-		if(wand_grasped != null){
-			
-			wand_grasped.DisplayRay();
-			activate_wand();
-
+		if(try_to_light_torch() && wand_grasped != null)//light torch
+		{
+			GameObject hitObject=wand_grasped.get_hitObject();//object pointed at by wand
+			if(hitObject!=null){
+				TorchObject torchObject = hitObject.GetComponent<TorchObject>();
+				if(torchObject != null){
+					torchObject.toggle_visibility();
+				}
+			}	
+		}
+		
+		if(try_to_interact_with_puzzle() && wand_grasped != null)
+		{
+			GameObject hitObject=wand_grasped.get_hitObject();//object pointed at by wand
+			if(hitObject!=null){
+				PuzzleObject puzzleObject = hitObject.GetComponent<PuzzleObject>();
+				if(puzzleObject != null){
+					// do something ?
+				}
+			}				
 		}
 
 	}
